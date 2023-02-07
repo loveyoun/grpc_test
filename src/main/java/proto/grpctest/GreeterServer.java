@@ -2,24 +2,31 @@ package proto.grpctest;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import io.quarkus.grpc.GrpcService;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-
+@Component
 public class GreeterServer {
+
+    @Autowired
+    private final GreeterImpl greeterimpl;
+    public GreeterServer(GreeterImpl greeterimpl) {
+        this.greeterimpl = greeterimpl;
+    }
 
     private Server server;
 
     void start() throws IOException{
         int port = 50051;
         server = ServerBuilder.forPort(port)
-                .addService(new GreeterImpl())
+                .addService(greeterimpl)
                 .build()
                 .start();
         System.out.println("Server Started, listening on " + port);
+
         Runtime.getRuntime().addShutdownHook(new Thread(){
             @Override
             public void run() {

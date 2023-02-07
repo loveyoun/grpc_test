@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package proto.grpctest;
+package greet;
 
 service Greeter{
   rpc hello(Hello.Request) returns (Hello.Response);
