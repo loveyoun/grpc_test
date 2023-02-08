@@ -7,6 +7,7 @@ import file.FileServiceGrpc;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedInputStream;
@@ -16,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Slf4j
 @Service
 @NoArgsConstructor
 public class FileServiceImpl extends FileServiceGrpc.FileServiceImplBase {
@@ -40,6 +42,7 @@ public class FileServiceImpl extends FileServiceGrpc.FileServiceImplBase {
                         .setData(ByteString.copyFrom(buffer, 0, length))
                         .setSize(bufferSize)
                         .build());
+                log.info("importing files...");
             }
 
             bis.close();
