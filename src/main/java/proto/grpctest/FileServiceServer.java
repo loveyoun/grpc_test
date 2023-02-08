@@ -9,21 +9,20 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class GreeterServer {
-    /**서버 띄우는 용도**/
-    
+public class FileServiceServer {
+
     @Autowired
-    private final GreeterImpl greeterimpl;
-    public GreeterServer(GreeterImpl greeterimpl) {
-        this.greeterimpl = greeterimpl;
+    private final FileServiceImpl fileserviceImpl;
+    public FileServiceServer(FileServiceImpl fileserviceImpl) {
+        this.fileserviceImpl = fileserviceImpl;
     }
 
     private Server server;
 
-    void start() throws IOException{
-        int port = 50051;
+    void start() throws IOException {
+        int port = 50053;
         server = ServerBuilder.forPort(port)
-                .addService(greeterimpl)
+                .addService(fileserviceImpl)
                 .build()
                 .start();
         System.out.println("Server Started, listening on " + port);
@@ -33,11 +32,10 @@ public class GreeterServer {
             public void run() {
                 System.err.println("***Shutting down gRPC server, since JVM is shutting down");
                 try {
-                    GreeterServer.this.stop();
+                    FileServiceServer.this.stop();
                 } catch(InterruptedException e){
                     e.printStackTrace(System.err);
                 }
-                //super.run();
             }
         });
     }
@@ -49,9 +47,5 @@ public class GreeterServer {
     void blockUtilShutdown() throws InterruptedException{
         if(server != null) server.awaitTermination();
     }
-
-//    public static void main(String[] args) throws IOException, InterruptedException{
-//
-//    }
 
 }

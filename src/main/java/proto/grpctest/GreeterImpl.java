@@ -18,10 +18,11 @@ public class GreeterImpl extends GreeterGrpc.GreeterImplBase{ //.proto file에 p
         final String str = "Hello " + request.getName() + "(" + request.getAge() + ")";
         System.out.println(str);
 
-        //클라이언트에 보낼 응답 response.
+        //클라이언트에 보낼 응답 response 만들기.
         final GreeterOuterClass.Hello.Response response = GreeterOuterClass.Hello.Response.newBuilder()
                 .setStr(str).build();
 
+        //responseObserver가 보내는 주체.
         responseObserver.onNext(response);
         responseObserver.onCompleted();
         //super.hello(request, responseObserver);
