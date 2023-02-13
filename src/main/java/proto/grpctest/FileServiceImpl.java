@@ -24,7 +24,7 @@ public class FileServiceImpl extends FileServiceGrpc.FileServiceImplBase {
     @Override
     public void downloadFile(DownloadFileRequest request, StreamObserver<DataChunk> responseObserver) {
         try {
-            //클라이언트에서 보낸 요청 request
+            //클라이언트에서 보낸 요청: request
             String fileName = request.getFileName();
 
             //file 읽고,

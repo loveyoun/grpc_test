@@ -20,6 +20,7 @@ public class GrpctestApplication {
 		this.fileServiceServer = fileServiceServer;
 	}
 
+
 	public static void main(String[] args) throws IOException, InterruptedException{
 		SpringApplication.run(GrpctestApplication.class, args);
 
